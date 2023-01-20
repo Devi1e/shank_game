@@ -1,0 +1,73 @@
+import pygame as game
+import pygame
+import random
+game.init()
+clock=pygame.time.Clock()
+#color
+white=(255,255,255)
+red=(255,0,0)
+black=(0,0,0)
+#game windo
+sce_wa=700
+sce_ha=800
+gamewin = game.display.set_mode((sce_wa,sce_ha))
+game.display.set_caption("My First game")
+game.display.update()
+#game valo
+exit_game =False
+game_over=False
+sa_a=40
+sa_b=50
+sa_z=15
+val_x=0
+val_y=0
+val_z=5
+fps=30
+sor=0
+game_x=sce_ha/2
+game_y=sce_wa/2
+f_x=random.randint(30,sce_ha/2)
+f_y=random.randint(30,sce_wa/2)
+game.display.update()
+#game loop
+while not exit_game:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            exit_game=True
+
+        if event.type==pygame.KEYDOWN:
+            if event.key==game.K_RIGHT:
+
+                val_x=val_z
+                val_y=0
+            if event.key == game.K_LEFT:
+
+                val_x=-val_z
+                val_y=0
+            if event.key== game.K_DOWN:
+
+                val_y=val_z
+                val_x=0
+            if event.key==game.K_UP:
+
+                val_y=-val_z
+                val_x=0
+            if event.key == game.K_END:
+                exit_game=True
+
+
+    sa_a+=val_x
+    sa_b+=val_y
+    if abs(sa_a-f_x)<6 and abs(sa_b-f_y)<6:
+        sor+=1
+        f_x = random.randint(20,sce_wa/2)
+        f_y = random.randint(20,sce_ha/2)
+        print(sor)
+    gamewin.fill(white)
+    pygame.draw.rect(gamewin,red,[f_x,f_y,sa_z,sa_z])
+    game.draw.rect(gamewin,black,[sa_a,sa_b,sa_z,sa_z])
+    game.display.update()
+    clock.tick(fps)
+
+game.quit()
+quit()
